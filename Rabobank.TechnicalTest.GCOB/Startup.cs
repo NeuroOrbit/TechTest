@@ -28,7 +28,9 @@ namespace Rabobank.TechnicalTest.GCOB
         {
             services.AddScoped<ICustomerRepository, InMemoryCustomerRepository>();
             services.AddScoped<ICountryRepository, InMemoryCountryRepository>();
-            
+
+            services.AddSwaggerGen();
+
             services.AddControllers();
         }
 
@@ -39,6 +41,13 @@ namespace Rabobank.TechnicalTest.GCOB
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "RaboBank API");
+            });
 
             app.UseHttpsRedirection();
 
