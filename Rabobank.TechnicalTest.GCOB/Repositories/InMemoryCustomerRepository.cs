@@ -48,7 +48,8 @@ namespace Rabobank.TechnicalTest.GCOB.Repositories
         {
             _logger.LogDebug($"FindMany Customers with identity {identity}");
 
-            if (!Customers.ContainsKey(identity)) throw new Exception(identity.ToString());
+            if (!Customers.ContainsKey(identity)) throw new Exception($"Can not find identity {identity}");
+
             _logger.LogDebug($"Found Customer with identity {identity}");
             return Task.FromResult(Customers[identity]);
         }

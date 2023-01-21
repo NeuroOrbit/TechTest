@@ -28,6 +28,7 @@ namespace Rabobank.TechnicalTest.GCOB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
+            services.AddSingleton<IAddressRepository, InMemoryAddressRepository>();
             services.AddScoped<ICountryRepository, InMemoryCountryRepository>();
             services.AddTransient<ICustomerService, CustomerService>();
 

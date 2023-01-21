@@ -34,7 +34,7 @@ namespace Rabobank.TechnicalTest.GCOB.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<CustomerDto>> GetCustomerById(int id)
+        public async Task<ActionResult<Customer>> GetCustomerById(int id)
         {
             var customer = await _customerService.GetCustomerById(id);
 

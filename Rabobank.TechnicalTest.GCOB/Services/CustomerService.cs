@@ -10,35 +10,21 @@ namespace Rabobank.TechnicalTest.GCOB.Services
     {
         private ILogger _logger;
         private readonly ICustomerRepository _customerRepository;
+        private readonly IAddressRepository _addressRepository;
+        private readonly ICountryRepository _countryRepository;
 
         /// <summary>
         /// CustomerService : CTOR
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="customerRepository"></param>
-        public CustomerService(ILogger<CustomerService> logger,ICustomerRepository customerRepository)
+        public CustomerService(ILogger<CustomerService> logger,ICustomerRepository customerRepository, IAddressRepository addressRepository,ICountryRepository countryRepository)
         {
             _logger = logger;
             _customerRepository = customerRepository;
-        }
+            _addressRepository = addressRepository;
+            _countryRepository = countryRepository;
 
-        /// <summary>
-        /// CreateCustomer
-        /// </summary>
-        /// <param name="newCustomer"></param>
-        /// <returns></returns>
-        public Task<CustomerDto> CreateCustomer(CustomerDto newCustomer)
-        {
-            _logger.LogDebug($"CustomerService:CreateCustomer({newCustomer.FirstName} {newCustomer.LastName})");
-
-            // get new id
-            var newCustId = _customerRepository.GenerateIdentityAsync();
-            newCustomer.Id = newCustId.Result;
-
-            // insert customer
-            _customerRepository.InsertAsync(newCustomer);
-            
-            return Task.FromResult(newCustomer);
         }
 
         /// <summary>
@@ -46,14 +32,53 @@ namespace Rabobank.TechnicalTest.GCOB.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<CustomerDto> GetCustomerById(int id)
+        public async Task<Customer> GetCustomerById(int id)
         {
             _logger.LogDebug($"CustomerService:GetCustomerById({id})");
             
-            var customer = _customerRepository.GetAsync(id);
+            // Get CustomerDto
+            var customerDto =  await _customerRepository.GetAsync(id);
 
-            return Task.FromResult(customer.Result);
+            // Map to Customer
+            Customer customer = new Customer();
+
+            // Get AddressDto
+
+            // Get CountryDto
+
+            // Update Customer 
+           
+
+            return customer;
         }
+
+        /// <summary>
+        /// CreateCustomer
+        /// </summary>
+        /// <param name="newCustomer"></param>
+        /// <returns>int customers id</returns>
+        public async Task<int> CreateCustomer(Customer newCustomer)
+        {
+            _logger.LogDebug($"CustomerService:CreateCustomer({newCustomer.FullName})");
+
+            // get new id
+            var newCustId = await _customerRepository.GenerateIdentityAsync();
+
+            // map customer to customerDto
+            var customerDto = new CustomerDto();
+            customerDto.Id = newCustId;
+   
+
+
+            // Insert customerDto
+            await _customerRepository.InsertAsync(customerDto);
+
+
+
+            return newCustId;
+        }
+
+
     }
 }
 
