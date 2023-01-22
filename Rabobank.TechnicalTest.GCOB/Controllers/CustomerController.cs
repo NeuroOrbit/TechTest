@@ -43,15 +43,19 @@ namespace Rabobank.TechnicalTest.GCOB.Controllers
 
 
         /// <summary>
-        /// CreateCustomer
+        /// 
         /// </summary>
-        /// <param name="firstName"></param>
-        /// <param name="lastName"></param>
+        /// <param name="fullName"></param>
+        /// <param name="street"></param>
+        /// <param name="city"></param>
+        /// <param name="postcode"></param>
+        /// <param name="country"></param>
         /// <returns></returns>
-        [HttpPost("{firstName}/{lastName}")]
-        public async Task<ActionResult<CustomerDto>> CreateCustomer(string firstName, string lastName)
+        [HttpPost("{fullName}/{street}/{city}/{postcode}/{country}")]
+        public async Task<ActionResult<int>> CreateCustomer(string fullName,
+            string street, string city, string postcode, string country)
         {
-            var customerToCreate = new CustomerDto() {FirstName = firstName, LastName = lastName };
+            var customerToCreate = new Customer() {FullName = fullName, Street = street, City = city, Postcode = postcode, Country = country};
 
             var newCustomer = await _customerService.CreateCustomer(customerToCreate);
 
