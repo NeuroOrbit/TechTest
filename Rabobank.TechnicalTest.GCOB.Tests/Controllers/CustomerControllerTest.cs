@@ -11,10 +11,15 @@ namespace Rabobank.TechnicalTest.GCOB.Tests.Services
     [TestClass]
     public class CustomerControllerTest
     {
+        private ILogger<CustomerController> logger;
 
         [TestInitialize]
         public void Initialize()
         {
+            var mock = new Mock<ILogger<CustomerController>>();
+            logger = mock.Object;
+
+
 
         }
 

@@ -5,6 +5,7 @@ using Rabobank.TechnicalTest.GCOB.Controllers;
 using Rabobank.TechnicalTest.GCOB.Dtos;
 using Rabobank.TechnicalTest.GCOB.Repositories;
 using Rabobank.TechnicalTest.GCOB.Services;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Rabobank.TechnicalTest.GCOB.Tests.Services
@@ -57,16 +58,16 @@ namespace Rabobank.TechnicalTest.GCOB.Tests.Services
         }
 
         [TestMethod]
-        public async Task GivenInsertACustomer_AndICallAServiceToGetTheCustomer_ThenTheCustomerIsIOnSerted_AndTheCustomerIsReturned()
+        public async Task GivenInsertACustomer_AndICallAServiceToInsertTheCustomer_ThenTheCustomerIsInSerted_AndTheNewCustomerIdIsReturned()
         {
             // Arrange
-            mockCustomerRepo.Setup(obj => obj.GenerateIdentityAsync().Result).Returns(2);
-            mockCustomerRepo.Setup(obj => obj.GetAsync(1).Result).Returns(customerDto);
-            
-            mockAddressRepo.Setup(obj => obj.GetAsync(1).Result).Returns(addressDto);
-            mockCountryRepo.Setup(obj => obj.GetAsync(1).Result).Returns(countryDto);
-            //mockCountryRepo.Setup(obj => obj.GetAllAsync().Result).Returns(new countr ))
+            List<CountryDto> countryDtos = new List<CountryDto>();
+            countryDtos.Add(new CountryDto { Name = "Netherlands", Id= 1 });
+            countryDtos.Add(new CountryDto { Id = 2, Name = "Poland" });
 
+            mockCustomerRepo.Setup(obj => obj.GenerateIdentityAsync().Result).Returns(2);
+            mockCountryRepo.Setup(obj => obj.GetAllAsync().Result).Returns(countryDtos);
+            
             var customerService = new CustomerService(logger, mockCustomerRepo.Object, mockAddressRepo.Object, mockCountryRepo.Object);
 
             var newCustomer = new Customer() { FullName = "John Smith", Street = "Pond Lane", City = "Amsterdam", Postcode = "AM66", Country = "Netherlands" };
