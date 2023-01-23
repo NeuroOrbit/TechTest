@@ -43,14 +43,14 @@ namespace Rabobank.TechnicalTest.GCOB.Controllers
 
 
         /// <summary>
-        /// 
+        /// CreateCustomer
         /// </summary>
         /// <param name="fullName"></param>
         /// <param name="street"></param>
         /// <param name="city"></param>
         /// <param name="postcode"></param>
         /// <param name="country"></param>
-        /// <returns></returns>
+        /// <returns>New Customer Id</returns>
         [HttpPost("{fullName}/{street}/{city}/{postcode}/{country}")]
         public async Task<ActionResult<int>> CreateCustomer(string fullName,
             string street, string city, string postcode, string country)
