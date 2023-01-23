@@ -17,10 +17,10 @@ namespace Rabobank.TechnicalTest.GCOB.Repositories
         {
             _logger = logger;
             Countries.TryAdd(1, new CountryDto { Id = 1, Name = "Netherlands" });
-            Countries.TryAdd(1, new CountryDto { Id = 2, Name = "Poland" });
-            Countries.TryAdd(1, new CountryDto { Id = 3, Name = "Ireland" });
-            Countries.TryAdd(1, new CountryDto { Id = 4, Name = "South Afrcia" });
-            Countries.TryAdd(1, new CountryDto { Id = 5, Name = "India" });
+            Countries.TryAdd(2, new CountryDto { Id = 2, Name = "Poland" });
+            Countries.TryAdd(3, new CountryDto { Id = 3, Name = "Ireland" });
+            Countries.TryAdd(4, new CountryDto { Id = 4, Name = "South Afrcia" });
+            Countries.TryAdd(5, new CountryDto { Id = 5, Name = "India" });
         }
 
         public Task<CountryDto> GetAsync(int identity)
